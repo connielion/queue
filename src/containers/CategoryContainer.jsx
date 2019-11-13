@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchDisplay from '../components/SearchDisplay.jsx';
-import Map from '../components/Map.jsx';
+import NewMap from '../components/NewMap.jsx'
 import debounce from "lodash.debounce";
 import '../css/CategoryPage.css';
 
@@ -41,15 +41,22 @@ class CategoryContainer extends Component {
       </div>
     })
 
-    if (this.props.categoryPage) {
-      search =
-        <div id="category-body">
-          <SearchDisplay
-            searchDisplayResults={searchDisplayResults}
-          />
-          <Map latitude={this.props.latitude} longitude={this.props.longitude} />
-        </div>
-    }
+  if (this.props.categoryPage) {
+    console.log('length of thissss', this.props.categoryPage)
+    // console.log('yoooooooooooooooooo', searchDisplayResults)
+    // console.log("testtttttttttttttttingggg", this.props.searchResults)
+    search =  
+    <div id="category-body">
+      <SearchDisplay
+        searchDisplayResults={searchDisplayResults}
+      />
+      <NewMap
+        StoresInfo = {this.props.searchResults}
+        latitude={this.props.latitude} longitude={this.props.longitude} 
+      />
+      
+    </div>
+  }
 
     return (
       <div>
