@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap');
+:root {
+    /* font-size 62.5% makes 1rem = 10px, rem used for dyanmic sizing */
+    font-size: 62.5%;
+    height: 100%;
+    width: 100%;
+  }
+.navbar {
+    height: 60px;
+    font-size: 12px;
+}
+
+.align-v {
+    vertical-align: middle;
+}
+span.brand {
+    font-weight: 800;
+    font-size: 20px;
+}
+.auth-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+.navbar-toggler {
+    height: 30px;
+    width: 30px;
+}
+.flex {
+    display: flex;
+}
+.f-col {
+    flex-direction: column;
+}
+
+.auth-btn {
+    font-size: 20px;
+}
+.nav-link {
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    margin-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(89, 89, 89);
+    font-size: 20px;
+    flex-direction: column;
+}
+
+.bg1 {
+    background-color: rgba(235, 235, 235, 0.728);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+}
+
+.btn {
+    font-size: 20px;
+}
+/* .btn {
+    height: 14px;
+    width: 24px;
+} */
