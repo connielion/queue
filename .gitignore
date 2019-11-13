@@ -63,3 +63,7 @@ typings/
 webpage.config.js
 
 package.json
+
+# miscellaneous
+db_scripts
+config.js

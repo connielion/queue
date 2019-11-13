@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap');
 :root {
   /* font-size 62.5% makes 1rem = 10px, rem used for dyanmic sizing */
   font-size: 62.5%;
@@ -16,7 +17,7 @@ body {
   text-align: center;
   min-height: 100%;
   width: 100%;
-  background: url('https://images.pexels.com/photos/1323712/pexels-photo-1323712.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center fixed; 
+  /* background: url('https://images.pexels.com/photos/1323712/pexels-photo-1323712.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center fixed;  */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -39,9 +40,9 @@ body {
   filter: invert(100%);
 }
 
-h1 {
-  font-family: 'Varela Round', sans-serif;
-  font-size: 20rem;
+#logo p {
+  font-family: 'Merriweather Sans', sans-serif;
+  font-size: 16rem;
   color: white;
   text-shadow: -4px 0 black, 0 4px black, 4px 0 black, 0 -4px black;
   display: inline-block;

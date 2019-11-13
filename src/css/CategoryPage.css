@@ -14,7 +14,7 @@ body {
   font-size: 1.6rem;
   min-height: 100%;
   width: 100%;
-  background: url('https://images.pexels.com/photos/1323712/pexels-photo-1323712.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center fixed; 
+  /* background: url('https://images.pexels.com/photos/1323712/pexels-photo-1323712.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center fixed;  */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -22,7 +22,7 @@ body {
 }
 
 .search-bar {
-  position: fixed;
+  position: sticky;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -33,11 +33,11 @@ body {
 }
 
 #logo-pic-category {
-  height: 6rem;
+  height: 4rem;
   width: auto;
-  position: fixed;
+  /* position: fixed;
   top: .1rem;
-  left: 1rem;
+  left: 1rem; */
 }
 
 #category-body {
@@ -46,20 +46,27 @@ body {
   padding-top: 11rem;
 }
 
-button {
-  border: 1px solid black;
+.list-item {
+  height: 300px;
+  width: 300px;
   border-radius: 20px;
+}
+
+/* button {
+  border: 1px solid black;
+  border-radius: 4px;
   margin: 0rem 2rem 1.5rem 1.5rem;
   padding: 1rem;
   list-style-type: none;
   font-size: 2rem;
-  font-family: 'Varela Round', sans-serif;
+  
   display: flex;
   align-items: center;
-  height: 25rem;
-  width: 45rem;
+  height: 20px;
+  width: 28px;
   transition: all .2s ease-in-out;
-}
+} 
+ */
 
 img {
   width: 15rem;
@@ -67,8 +74,8 @@ img {
   
 }
 
-button:hover {
+/* button:hover {
   transform: scale(1.06);
-}
+} */
 
 
