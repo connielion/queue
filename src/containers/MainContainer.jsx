@@ -117,6 +117,8 @@ class MainContainer extends Component {
               longitude: parsedData.businesses[i].coordinates.longitude
             });
           }
+
+          // console.log('lsitofbusiness is', listOfBusinesses)
   
           // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
   
@@ -237,6 +239,7 @@ class MainContainer extends Component {
       category = 
       <CategoryContainer 
         // props for search bar
+        
         setSearchInput = {this.setSearchInput}
         setLocation = {this.setLocation}
         search = {this.search}

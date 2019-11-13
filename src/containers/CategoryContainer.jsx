@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchDisplay from '../components/SearchDisplay.jsx';
-import Map from '../components/Map.jsx';
+import NewMap from '../components/NewMap.jsx'
 import debounce from "lodash.debounce";
 import '../css/CategoryPage.css';
 
@@ -21,12 +21,17 @@ class CategoryContainer extends Component {
     }
   }
 
+
+
   render() { 
+
+
+    
     // render map and list of businessess from searchResults arr in the state
   let search = null;
   let searchDisplayResults = this.props.searchResults.map((element, i) => {
     // console.log('search results', props.searchResults);
-    console.log('ELEMENT -> ', element);
+    // console.log('ELEMENT -> ', element);
     return <div id="list">
           <button className="list-item" key = {i} onClick={() => this.props.selectVenue(element.id, element.name, element.url, element.image, element.location, element.phone, element.latitude, element.longitude)}>
           <img src={`${element.image}`}/>
@@ -42,12 +47,19 @@ class CategoryContainer extends Component {
   })
 
   if (this.props.categoryPage) {
+    console.log('length of thissss', this.props.categoryPage)
+    // console.log('yoooooooooooooooooo', searchDisplayResults)
+    // console.log("testtttttttttttttttingggg", this.props.searchResults)
     search =  
     <div id="category-body">
       <SearchDisplay
         searchDisplayResults={searchDisplayResults}
       />
-      <Map latitude={this.props.latitude} longitude={this.props.longitude} />
+      <NewMap
+        StoresInfo = {this.props.searchResults}
+        latitude={this.props.latitude} longitude={this.props.longitude} 
+      />
+      
     </div>
   }
 
