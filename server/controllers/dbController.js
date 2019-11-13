@@ -32,7 +32,7 @@ dbController.createUser = (req, res, next) => {
 dbController.verifyUsername = (req, res, next) => {
     const {username, password} = req.body;
     const queryStr = `
-    SELECT (username) FROM users
+    SELECT username, password FROM users
     WHERE username = $1
     `;
     console.log('This is username', username)
@@ -49,16 +49,16 @@ dbController.verifyUsername = (req, res, next) => {
         const hash = data.rows[0].password;
         
         //Provide the comparison here
-        bcrypt.compare(password, hash, function(err, res) {
-            if(res) {
-             console.log('Password is correct')
+        bcrypt.compare(password, hash, function(err, result) {
+            if (err) return next({error: err})
+            if(result) {
+             console.log('Password is correct. Here is the res', result)
              return next()
             } else {
              console.log('Password doesn\'t match')
-             return next({ error: err });
+             res.status(403).json('Wrong password'); //we use json so the frontend can have a proper res
             } 
           });
-          return next()
         })
       .catch(err => {
           console.log('Error in verifyUser.controller', err)
