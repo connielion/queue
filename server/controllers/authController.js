@@ -8,12 +8,21 @@ module.exports = {
         return next();
     },
 
-    createSession: function(req, res, next) {
-        const queryStr = `
-        INSERT INTO sessions (cookieId)
-        VALUES ($1)`
+    createSession: async function(req, res, next) {
+        const queryStr1 = `
+        SELECT id FROM users 
+        WHERE (username = $1)`
+        const queryStr2 = `
+        INSERT INTO sessions (cookieId, user_id)
+        VALUES ($1, $2)`
 
-        db.query(queryStr, [res.locals.cookie])
+        await db.query(queryStr1, [res.locals.username])
+          .then(data => {
+              res.locals.id = data.rows[0].id;
+          })
+          .catch(err => console.log('Error retrieving user by username'))
+
+        db.query(queryStr2, [res.locals.cookie, res.locals.id])
           .then(data => {
               
               res.locals.session = true;

@@ -32,8 +32,8 @@ dbController.createUser = (req, res, next) => {
 dbController.verifyUsername = (req, res, next) => {
     const {username, password} = req.body;
     const queryStr = `
-    SELECT username, password FROM users
-    WHERE username=$1
+    SELECT (username) FROM users
+    WHERE username = $1
     `;
     console.log('This is username', username)
     console.log('This is the INPUT password', password)
@@ -70,9 +70,9 @@ dbController.addVenue = async (req, res, next) => {
     const { venueId, venueName } = req.body;
     try {
         const queryStr = `
-        INSERT INTO Venues (VenueID, venue)
+        INSERT INTO Venues (venue_id, venue)
         VALUES ($1, $2)
-        ON CONFLICT (VenueID)
+        ON CONFLICT (venue_id)
         DO NOTHING
         `;
         // const params = [ req.body.venueId, req.body.venueName ];
@@ -94,7 +94,7 @@ dbController.addWaitTime = (req, res, next) => {
 
     // later, add a third column for createdby username
     const queryStr = `
-        INSERT INTO WaitTimes (WaitTime, VenueID)
+        INSERT INTO wait_times (wait_time, venue_id)
         VALUES ($1, $2)
         RETURNING *
         `;
@@ -136,11 +136,11 @@ dbController.getWaitTimes = async (req, res, next) => {
   const { venueId } = req.body;
   try {
       const queryStr = `
-      SELECT WaitTime, TimeStamp
-      FROM waittimes
-      WHERE VenueId='${venueId}'
-      ORDER BY WaitTimeId DESC
-      LIMIT 5
+      SELECT wait_time, timestamp
+      FROM wait_times
+      WHERE venue_id='${venue_id}'
+      ORDER BY timestamp DESC
+      LIMIT 10
       `;
       const result = await db.query(queryStr);
       res.locals.results = result.rows;
@@ -152,6 +152,32 @@ dbController.getWaitTimes = async (req, res, next) => {
           message: { err: 'Error occurred in dbController.getWaitTimes.' }
       });
   }
+}
+
+dbController.addFavorite = async (req, res, next) => {
+    const { venue_id } = req.params;
+    console.log(venue_id);
+    let user;
+    const cookie = req.cookies.ssid;
+    const queryStr = `
+    SELECT user_id FROM sessions 
+    WHERE cookieid = $1`
+
+    await db.query(queryStr, [cookie])
+      .then(data => {
+          user = data.rows[0].user_id;
+      })
+    .catch(err => next(err));
+    
+    const insertStr = `
+    INSERT INTO favorites (user_id, venue_id)
+    VALUES ($1,$2)`
+
+    db.query(insertStr, [user, venue_id.toString()])
+      .then(data => {
+          return next();
+      })
+      .catch(err => next(err));
 }
 
 module.exports = dbController;

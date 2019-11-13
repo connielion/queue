@@ -1,13 +1,21 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-
+import axios from 'axios';
 const LoginPage = ({ signupButton }) => {
+    // add function POST to /dbRouter/login
+    function postToLogin() {
+        console.log(`post() clicked`)
+        axios.post(`/dbRouter/login`)
+            .then(res => {
+                console.log(`res from POST to /login`, res)
+            })
+    }
     return (
         <div className="container bg1">
             <form action="/dbRouter/login" method="POST" className="flex f-col">
                 username: <input type="text" name="username" required /><br />
                 password: <input type="password" name="password" required /><br />
-                <Button id="signup" variant="dark">Login</Button>
+                <Button id="signup" variant="dark" onClick={postToLogin}>Login</Button>
                 {/* <input id="signup" type="submit" value="Login" /> */}
             </form>
             <a href="/signup" onClick={signupButton}>
