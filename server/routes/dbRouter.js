@@ -4,8 +4,8 @@ const router = express.Router();
 const path = require('path');
 
 router.post('/signup', dbController.createUser, (req, res) => {
-    console.log('successfully created new user')
-    res.status(200).sendFile(path.resolve(__dirname, '../../src/index.html'));
+  res.status(201).json({ confirmation: 'success', user: res.locals.user});
+  //res.status(200).sendFile(path.resolve(__dirname, '../../src/index.html'));
 })
 
 router.post('/login', dbController.verifyUser, (req, res) => {
