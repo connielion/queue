@@ -36,7 +36,27 @@ dbController.createUser = (req, res, next) => {
 }
 
 dbController.verifyUser = (req, res, next) => {
-    
+    const {username} = req.body;
+    const queryStr = `
+    SELECT username FROM users
+    WHERE username = $1
+    `;
+    console.log('This is username', username)
+    const values = [username]
+
+    db.query(queryStr,values)
+      .then(data => {
+          if(data.rows.length === 0) {
+              res.status(404).json({nouser : 'no user found'});
+              return next();
+          } 
+        res.locals.username = data.rows[0].username;
+        return next()
+        })
+      .catch(err => {
+          console.log('Error in verifyUser.controller', err)
+          return next();
+        })
 }
 
 dbController.addVenue = async (req, res, next) => {
