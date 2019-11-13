@@ -121,6 +121,8 @@ class MainContainer extends Component {
             });
           }
 
+          // console.log('lsitofbusiness is', listOfBusinesses)
+  
           // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
 
           this.setState(state => {
