@@ -4,7 +4,7 @@ import axios from 'axios'
 const SignUpPage = ({ loginButton }) => {
     function postToSignup() {
         console.log(`postToSignup() clicked`)
-        axios.post(`/dbRouter/login`)
+        axios.post(`/dbRouter/signup`)
             .then(res => {
                 console.log(`res from POST to /login`, res)
             })
