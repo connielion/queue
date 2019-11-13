@@ -35,7 +35,7 @@ dbController.createUser = (req, res, next) => {
 
 }
 
-dbController.verifyUser = (req, res, next) => {
+dbController.verifyUsername = (req, res, next) => {
     const {username} = req.body;
     const queryStr = `
     SELECT username FROM users
@@ -50,7 +50,8 @@ dbController.verifyUser = (req, res, next) => {
               res.status(404).json({nouser : 'no user found'});
               return next();
           } 
-        res.locals.username = data.rows[0].username;
+        // Save user to locals  
+        res.locals.username = data.rows[0].username;      
         return next()
         })
       .catch(err => {
