@@ -25,6 +25,10 @@ span.brand {
     height: 30px;
     width: 30px;
 }
+/* non-desktop only */
+.collapse {
+    background-color: #F8F9FA;
+}
 .flex {
     display: flex;
 }
