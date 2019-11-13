@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const dbRouter = require('./routes/dbRouter.js');
 const apiRouter = require('./routes/api');
@@ -11,6 +12,7 @@ const PORT = 3000;
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 
 // When we have assets
