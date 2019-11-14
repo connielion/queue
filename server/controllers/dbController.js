@@ -16,8 +16,7 @@ dbController.createUser = (req, res, next) => {
         db.query(queryStr, [username, hash])
             .then( data => {
             res.locals.user = { username };
-            console.log('Bcrypt data', data)
-            console.log('bcrypted password', password)
+
             return next();
             })
             .catch( err => {
@@ -35,8 +34,7 @@ dbController.verifyUsername = (req, res, next) => {
     SELECT username, password FROM users
     WHERE username = $1
     `;
-    console.log('This is username', username)
-    console.log('This is the INPUT password', password)
+
     const values = [username]
 
     db.query(queryStr,values)
@@ -52,10 +50,8 @@ dbController.verifyUsername = (req, res, next) => {
         bcrypt.compare(password, hash, function(err, result) {
             if (err) return next({error: err})
             if(result) {
-             console.log('Password is correct. Here is the res', result)
              return next()
             } else {
-             console.log('Password doesn\'t match')
              res.status(403).json('Wrong password'); //we use json so the frontend can have a proper res
             } 
           });
@@ -156,7 +152,6 @@ dbController.getWaitTimes = async (req, res, next) => {
 
 dbController.addFavorite = async (req, res, next) => {
     const { venue_id } = req.params;
-    console.log(venue_id);
     let user;
     const cookie = req.cookies.ssid;
     const queryStr = `
