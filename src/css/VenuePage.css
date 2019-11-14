@@ -31,7 +31,7 @@ body {
 }
 
 #venue-page {
-  padding-top: 11rem;
+  padding-top: 40px;
   display: flex;
   justify-content: center;
 }
@@ -93,4 +93,10 @@ h2 {
 .message {
   border-bottom: 1px solid #ddd;
   padding: 10px;
+}
+
+.chat-form {
+  position: fixed;
+  bottom: 0;
+  width: 498px;
 }

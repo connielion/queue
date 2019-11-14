@@ -4,12 +4,11 @@ import WaitTimesDisplay from '../components/WaitTimesDisplay.jsx';
 import MessageBoard from '../components/MessageBoard.jsx';
 import '../css/VenuePage.css'
 import VenueMap from '../components/VenueMap.jsx'
-import Button from 'react-bootstrap/Button';
 
 
 const VenueContainer = (props) => {
 
-  
+
   // render map and wait times
   console.log('props in venucontainer', props.searchResults)
   return (
@@ -31,32 +30,25 @@ const VenueContainer = (props) => {
             venuePhone={props.venuePhone}
           />
 
-          <WaitTimesDisplay 
-            venueId = { props.venueId }
-            venueWaitTimeList = { props.venueWaitTimeList }
-            addWaitTime = { props.addWaitTime }
-            setWaitTime = { props.setWaitTime }
-            updateWaitList = {props.updateWaitList}
+          <WaitTimesDisplay
+            venueId={props.venueId}
+            venueWaitTimeList={props.venueWaitTimeList}
+            addWaitTime={props.addWaitTime}
+            setWaitTime={props.setWaitTime}
+            updateWaitList={props.updateWaitList}
 
           />
         </div>
 
-        <div id="map">
-          <VenueMap 
-            StoresInfo = {props.searchResults}
-            latitude={props.latitude} 
+        <div id="map" className="j-center flex fd-col">
+          <VenueMap
+            StoresInfo={props.searchResults}
+            latitude={props.latitude}
             longitude={props.longitude}
 
           />
-            
-
+          <MessageBoard venue={props.venueId} className="board" />
         </div>
-
-        <br />
-        <MessageBoard venue={props.venueId} />
-
-
-
       </div>
     </div>
   )
