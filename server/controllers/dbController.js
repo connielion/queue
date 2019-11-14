@@ -1,62 +1,64 @@
 const db = require('../models/models.js');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const dbController = {};
 
 dbController.createUser = (req, res, next) => {
-    const { username, password } = req.body;
-    const queryStr = `
+    let { username, password } = req.body;
+
+   const queryStr = `
     INSERT INTO users (username, password)
     VALUES ($1, $2)
 	`;
 
-  db.query(queryStr, [username, password])
-	.then( data => {
-	  res.locals.user = { username };
-	  return next();
-	})
-    .catch( err => {
-	  console.log('Error saving user: ', err);
-	  return next({ error: err });
-	});
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+        db.query(queryStr, [username, hash])
+            .then( data => {
+            res.locals.user = { username };
 
-  // db currently does not save two accounts with the same username, but does not notify second user that username is already taken
-  /*
-    db.query(queryStr, [username, password], (err, data) => {
-        if (err) {
-            return next({
-                log: `dbController.createUser: ERROR: ${err}`,
-                message: { err: 'Error occurred in dbController.createUser.' }
-            });
-        }
-	})
-	*/
+            return next();
+            })
+            .catch( err => {
+            console.log('Error saving user: ', err);
+            return next({ error: err });
+            });  
+      });
 
-    
-
+   
 }
 
 dbController.verifyUsername = (req, res, next) => {
-    const {username} = req.body;
+    const {username, password} = req.body;
     const queryStr = `
-    SELECT (username) FROM users
+    SELECT username, password FROM users
     WHERE username = $1
     `;
-    console.log('This is username', username)
+
     const values = [username]
 
     db.query(queryStr,values)
       .then(data => {
           if(data.rows.length === 0) {
-              res.status(404).json({nouser : 'no user found'});
-              return next();
+              return res.status(404).json({nouser : 'no user found'});
           } 
-        // Save user to locals  
-        res.locals.username = data.rows[0].username;
-        return next()
+        // Save user and pass to locals  
+        res.locals.username = data.rows[0].username;      
+        const hash = data.rows[0].password;
+        
+        //Provide the comparison here
+        bcrypt.compare(password, hash, function(err, result) {
+            if (err) return next({error: err})
+            if(result) {
+             return next()
+            } else {
+             res.status(403).json('Wrong password'); //we use json so the frontend can have a proper res
+            } 
+          });
         })
       .catch(err => {
           console.log('Error in verifyUser.controller', err)
-          return next();
+          return next({ error: err });
         })
 }
 
@@ -156,7 +158,6 @@ dbController.getWaitTimes = async (req, res, next) => {
 
 dbController.addFavorite = async (req, res, next) => {
     const { venue_id } = req.params;
-    console.log(venue_id);
     let user;
     const cookie = req.cookies.ssid;
     const queryStr = `
