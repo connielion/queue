@@ -318,6 +318,8 @@ class MainContainer extends Component {
           searchInput={this.state.searchInput}
           location={this.state.location}
           searchResults={this.state.searchResults}
+          latitude={this.state.latitude}
+          longitude={this.state.longitude}
 
           // props for venue selection
           venueId={this.state.venueId}

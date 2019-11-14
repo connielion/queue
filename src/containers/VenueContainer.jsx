@@ -6,6 +6,7 @@ import NewMap from '../components/NewMap.jsx'
 
 const VenueContainer = (props) => {
   // render map and wait times
+  console.log(props)
   return (
     <div>
       <section className="search-bar">
@@ -32,12 +33,21 @@ const VenueContainer = (props) => {
         </div>
 
         <div id="map">
+          {/* <NewMap 
+            StoresInfo = {this.props.searchResults}
+            latitude={this.props.latitude} 
+            longitude={this.props.longitude} 
+          /> */}
           <iframe 
             width="500" 
             height="400" 
             // #19 before ${props.venueLatitude} in src link specifies zoom (smaller number = less zoom)
             src={`https://api.maptiler.com/maps/basic/?key=OeKji8TvwQYbzy8G5Pda#19/${props.venueLatitude}/${props.venueLongitude}/`}>
           </iframe>
+
+
+
+
         </div>
       </div>
     </div>

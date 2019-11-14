@@ -52,7 +52,8 @@ class CategoryContainer extends Component {
       />
       <NewMap
         StoresInfo = {this.props.searchResults}
-        latitude={this.props.latitude} longitude={this.props.longitude} 
+        latitude={this.props.latitude} 
+        longitude={this.props.longitude} 
         
       />
       
