@@ -15,8 +15,8 @@ function Map(props) {
     
         return(
             <GoogleMap
-                defaultZoom = {13}
-                defaultCenter= {{lat : 33.9878, lng: 118.4706}}
+                defaultZoom = {15}
+                defaultCenter= {{lat : Number(props.latitude), lng: Number(props.longitude)}}
                 center= {{lat : Number(props.latitude), lng: Number(props.longitude)}}
                 defaultOptions={{styles:mapStyles}}
             >
@@ -66,10 +66,10 @@ function Map(props) {
 
 const WrappedMap = withScriptjs(withGoogleMap(Map))
 
-export default function TestMap(props) {
+export default function VenueMap(props) {
     console.log('prop.storesinfo in TestMap', props.StoresInfo)
     return (
-        <div style={{width: '700px', height: "700px"}}>
+        <div style={{width: '500px', height: "500px"}}>
             <WrappedMap
                 StoresInfo = {props.StoresInfo}
                 latitude = {props.latitude}
