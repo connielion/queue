@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 const keys = require('../../config');
 
-// use dontenv to hide pg_uri when ready 
+// use .config to hide pg_uri when ready 
 const PG_URI = keys.PG_URI;
 
 console.log("PG URI: ", PG_URI);

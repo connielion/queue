@@ -33,6 +33,7 @@ class MainContainer extends Component {
       venueLongitude: '',
       waitTime: 0,
       venueWaitTimeList: [],
+      vanuePriceRange: '',
 
       // components for infinite scrolling functionality
       current: 25,
@@ -99,18 +100,48 @@ class MainContainer extends Component {
       .then(response => response.json())
       .then(data => {
         const parsedData = JSON.parse(data);
-        // console.log('PARSEDDATA: ', parsedData);
+        console.log('PARSEDDATA: ', parsedData);
         // console.log('introspecting the data: ', parsedData.businesses[0])
 
         // Coordinates used for map rendered in Category Container (List Page)
         const firstBusinessLatitude = parsedData.businesses[0].coordinates.latitude;
         const firstBusinessLongitude = parsedData.businesses[0].coordinates.longitude;
 
+
+
+        // some businesses dont have pric range data, so iterate thru the whole thing to add key-value property
+        // for unknow price with "price:?"
+        // instead of cocktail icon, I will implement price range icon as marker!
+        for (let i = 0; i < parsedData.businesses.length ; i++) {
+          if (!parsedData.businesses[i].price) {
+            parsedData.businesses[i].price = '?'
+          }
+        }
+
+
+        // for google map icon
+        for (let i = 0; i < parsedData.businesses.length ; i++) {
+          if (parsedData.businesses[i].price === '?') {
+            parsedData.businesses[i].icon = 'https://media.giphy.com/media/IzpTRrFaYcrSse7NLo/giphy.gif'
+          } else if (parsedData.businesses[i].price === '$') {
+            parsedData.businesses[i].icon = 'https://media.giphy.com/media/UtVcZEfoe26VDo70o9/giphy.gif'
+          } else if (parsedData.businesses[i].price === '$$') {
+            parsedData.businesses[i].icon = 'https://media.giphy.com/media/XaLM8yEodK5gi3Wurh/giphy.gif'
+          } else if (parsedData.businesses[i].price === '$$$') {
+            parsedData.businesses[i].icon = 'https://media.giphy.com/media/cnzaSEhQWl6jbV0XTe/giphy.gif'
+          } else {
+            parsedData.businesses[i].icon = 'https://media.giphy.com/media/mG8SvyUQNcd182U39m/giphy.gif'
+          } 
+        }
+
+        console.log('parseddata after modification', parsedData)
+
+
         const listOfBusinesses = [];
         // console.log(parsedData.businesses.length)
         if (this.state.current <= 50) {
           for (let i = 0; i < this.state.current; i += 1) {
-            // console.log('LIST BUSINESSES -> ', listOfBusinesses)
+            
             listOfBusinesses.push({
               id: parsedData.businesses[i].id,
               name: parsedData.businesses[i].name,
@@ -118,12 +149,16 @@ class MainContainer extends Component {
               location: parsedData.businesses[i].location,
               category: parsedData.businesses[i].categories[0].title,
               latitude: parsedData.businesses[i].coordinates.latitude,
-              longitude: parsedData.businesses[i].coordinates.longitude
-            });
+              longitude: parsedData.businesses[i].coordinates.longitude,
+              phone: parsedData.businesses[i].phone,
+              price: parsedData.businesses[i].price,
+              icon: parsedData.businesses[i].icon
+            })
           }
+          console.log('LIST BUSINESSES -> ', listOfBusinesses)
 
           // console.log('lsitofbusiness is', listOfBusinesses)
-  
+
           // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
 
           this.setState(state => {
@@ -182,7 +217,7 @@ class MainContainer extends Component {
     for (let i = 0; i <= data.length; i++) {
       if (data[i]) {
         let time = data[i]["timestamp"].split(/[- : T .]/);
-        let timestamp = new Date(Date.UTC(time[0], time[1]-1, time[2], time[3], time[4], time[5]))
+        let timestamp = new Date(Date.UTC(time[0], time[1] - 1, time[2], time[3], time[4], time[5]))
         console.log(timestamp);
         waitTimes.push(<div key={i}>{data[i]["wait_time"]} minutes - last updated {`${timestamp}`}</div>)
       }
@@ -196,18 +231,18 @@ class MainContainer extends Component {
       venueId: this.state.venueId,
       venueName: this.state.venueName,
     }
-    
+
     // console.log(body);
     fetch('/dbRouter/addWaitTime', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: { 'Content-Type': 'application/json' }
     })
-      .then( data => {
+      .then(data => {
         fetch(`/dbRouter/getWaitTimes/${this.state.venueId}`, {
           method: 'GET'
         })
-          .then( res => {
+          .then(res => {
             console.log("2nd fetch: ", res.clone().json());
             return res.clone().json()
             //this.setState({venueWaitTimeList: data});
@@ -217,7 +252,7 @@ class MainContainer extends Component {
             const updatedWaitTimes = []
             this.timeFormatter(list, updatedWaitTimes)
             console.log("Wait times: ", updatedWaitTimes);
-            this.setState({venueWaitTimeList: updatedWaitTimes})
+            this.setState({ venueWaitTimeList: updatedWaitTimes })
           })
           .catch(err => next(err));
         //this.setState({venueWaitTimeList: data})
@@ -234,25 +269,25 @@ class MainContainer extends Component {
     fetch(`/dbRouter/getWaitTimes/${venueId}`, {
       method: 'GET'
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      const waitTimes = [];
-      this.timeFormatter(data, waitTimes);
-      // for (let i = 0; i <= data.length; i++) {
-      //   if (data[i]) {
-      //     let time = data[i]["timestamp"].split(/[- : T .]/);
-      //     let timestamp = new Date(Date.UTC(time[0], time[1]-1, time[2], time[3], time[4], time[5]))
-      //     console.log(timestamp);
-      //     waitTimes.push(<div key={i}>{data[i]["wait_time"]} minutes - last updated {`${timestamp}`}</div>)
-      //   }
-      this.setState({
-        venueWaitTimeList: waitTimes
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        const waitTimes = [];
+        this.timeFormatter(data, waitTimes);
+        // for (let i = 0; i <= data.length; i++) {
+        //   if (data[i]) {
+        //     let time = data[i]["timestamp"].split(/[- : T .]/);
+        //     let timestamp = new Date(Date.UTC(time[0], time[1]-1, time[2], time[3], time[4], time[5]))
+        //     console.log(timestamp);
+        //     waitTimes.push(<div key={i}>{data[i]["wait_time"]} minutes - last updated {`${timestamp}`}</div>)
+        //   }
+        this.setState({
+          venueWaitTimeList: waitTimes
+        })
       })
-    })
-    .catch((err) => {
-      console.log(`${err}: getWaitTime func err when getting wait time`)
-    })
+      .catch((err) => {
+        console.log(`${err}: getWaitTime func err when getting wait time`)
+      })
   }
 
   render() {
@@ -285,13 +320,13 @@ class MainContainer extends Component {
               <div id="home-content">
                 {/* // uncomment to work on login and signup functionalities
         <button onClick={this.loginButton}>Login</button> */}
-                {/* <div id="logo">
+                <div id="logo">
                   <img id="logo-pic" src="https://image.flaticon.com/icons/png/512/876/876569.png" />
                   <p>GraphQueue</p>
-                </div> */}
+                </div>
                 <section id="home-page-search-bar">
-                  <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput} />
-                  <input type="input" id="location" placeholder="Location" onChange={this.setLocation} />
+                  <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput} required />
+                  <input type="input" id="location" placeholder="Location" onChange={this.setLocation} required />
                   <input type="button" id="searchButton" onClick={this.search} />
                 </section>
               </div>
@@ -315,6 +350,7 @@ class MainContainer extends Component {
           searchInput={this.state.searchInput}
           location={this.state.location}
           searchResults={this.state.searchResults}
+          phone = {this.state.venuePhone}
 
           selectVenue={this.selectVenue}
           waitTimes={this.state.waitTimes}
@@ -342,6 +378,8 @@ class MainContainer extends Component {
           searchInput={this.state.searchInput}
           location={this.state.location}
           searchResults={this.state.searchResults}
+          latitude={this.state.latitude}
+          longitude={this.state.longitude}
 
           // props for venue selection
           venueId={this.state.venueId}

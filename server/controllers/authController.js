@@ -38,9 +38,10 @@ module.exports = {
         const queryStr = `
         SELECT user_id FROM sessions
         WHERE cookieId = ($1)`
+
         db.query(queryStr, [cookie])
           .then(data => {
-              console.log("Data: ", data.rows);
+            //   console.log("Data: ", data.rows);
               if (data.rows.length === 0) {
                   return res.status(404).json({ invalidSession: 'Invalid session' })
               }
