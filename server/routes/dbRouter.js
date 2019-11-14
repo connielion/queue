@@ -5,16 +5,16 @@ const router = express.Router();
 const path = require('path');
 
 router.post('/signup', dbController.createUser, (req, res) => {
-    res.status(201).json({ confirmation: 'success', user: res.locals.user});
+    res.status(201).json({ confirmation: 'success', username: res.locals.username });
     //res.status(200).sendFile(path.resolve(__dirname, '../../src/index.html'));
 })
 
 router.post('/login', dbController.verifyUsername, authController.setCookie, authController.createSession, (req, res) => {
-    res.status(200).json({ confirmation: 'success', user: res.locals.user });
+    res.status(200).json({ confirmation: 'success', username: res.locals.username });
 })
 
 router.get('/test', authController.setCookie, authController.createSession, authController.isLoggedIn, (req, res) => {
-    res.json({confirmation: 'Success'});
+    res.json({confirmation: 'Success', username: 'res.locals.username' });
 })
 
 router.get('/getWaitTimes/:venue_id', dbController.getWaitTimes, (req, res) => {
