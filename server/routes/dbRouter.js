@@ -17,7 +17,7 @@ router.get('/test', authController.setCookie, authController.createSession, auth
     res.json({confirmation: 'Success'});
 })
 
-router.post('/getWaitTimes', dbController.getWaitTimes, (req, res) => {
+router.get('/getWaitTimes/:venue_id', dbController.getWaitTimes, (req, res) => {
     console.log('successfully retrieved wait times')
     res.status(200).json(res.locals.results);
 })
@@ -29,6 +29,10 @@ router.post('/addWaitTime', dbController.addVenue, dbController.addWaitTime, (re
 
 router.post('/addFavorite/:venue_id', dbController.addFavorite, (req, res) => {
     res.status(200).json({ confirmation: 'added favorite'})
+})
+
+router.get('/favorites/', authController.isLoggedIn, dbController.getFavorites, (req, res) => {
+    res.status(201).json({ confirmation: 'here are your results'});
 })
 
 module.exports = router;

@@ -9,46 +9,19 @@ class WaitTimesDisplay extends Component {
     }
 
   }
-  
-  updateWaitList() {
-    // fetch request to display wait times
-    const body = {
-      venueId: this.props.venueId
-    }
-    fetch('/dbRouter/getWaitTimes', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {"Content-type": "application/json"}
-    })
-    .then(res => res.json())
-    .then(data => {
-      // console.log(data)
-      const waitTimes = [];
-      for (let i = 0; i <= data.length; i++) {
-        if (data[i]) {
-          let time = data[i]["timestamp"].split(/[- : T .]/);
-          let timestamp = new Date(Date.UTC(time[0], time[1]-1, time[2], time[3], time[4], time[5]))
-          console.log(timestamp);
-          waitTimes.push(<div key={i}>{data[i]["waittime"]} minutes - last updated {`${timestamp}`}</div>)
-        }
-      }
-      this.setState({
-        waitTimeList: waitTimes
-      })
-    })
-    .catch((err) => {
-      console.log(`${err}: getWaitTime func err when getting wait time`)
-    })
-  }
 
+  
+
+
+
+  componentDidMount() {
+    this.props.updateWaitList();
+  }
 
   componentDidUpdate() {
-    this.updateWaitList();
+
   }
-  
-  componentDidMount() {
-    this.updateWaitList();
-  }
+
   
   
   render() {
@@ -61,7 +34,7 @@ class WaitTimesDisplay extends Component {
         {/* render wait times pulled from sql database */}
             <div>
               Most Recent Wait Times
-              {this.state.waitTimeList}
+              {this.props.venueWaitTimeList}
             </div>
       </div>
      );

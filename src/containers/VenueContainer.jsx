@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import VenueDetails from '../components/VenueDetails.jsx';
 import WaitTimesDisplay from '../components/WaitTimesDisplay.jsx';
 import '../css/VenuePage.css'
 
 const VenueContainer = (props) => {
+
+  
   // render map and wait times
   return (
     <div>
@@ -27,6 +29,8 @@ const VenueContainer = (props) => {
             venueWaitTimeList = { props.venueWaitTimeList }
             addWaitTime = { props.addWaitTime }
             setWaitTime = { props.setWaitTime }
+            updateWaitList = {props.updateWaitList}
+
           />
         </div>
 
