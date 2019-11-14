@@ -8,42 +8,40 @@ import './css/styles.css'
 import { Navbar, Nav } from 'react-bootstrap';
 
 
-class App extends Component {
+const App = () => {
 
-  render() {
-    return (
-      <Router>
-        <Navbar bg="light" expand="lg" className="navbar">
-          <Navbar.Brand as={Link} to="/">
-            <span className="brand">GraphQueue</span>
-          </Navbar.Brand>
+  return (
+    <Router>
+      <Navbar bg="light" expand="lg" className="navbar">
+        <Navbar.Brand as={Link} to="/">
+          <span className="brand">GraphQueue</span>
+        </Navbar.Brand>
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
 
-              <Nav.Link as={Link} to="/" className="nav-link" >
-                Home
+            <Nav.Link as={Link} to="/" className="nav-link" >
+              Home
               </Nav.Link>
 
-              <Nav.Link as={Link} to="/signup" className="nav-link">
-                Signup
+            <Nav.Link as={Link} to="/signup" className="nav-link">
+              Signup
               </Nav.Link>
-              <Nav.Link as={Link} to="/login" className="nav-link">
-                Login
+            <Nav.Link as={Link} to="/login" className="nav-link">
+              Login
               </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <Switch>
-          <Route exact path="/" component={MainContainer} />
-          <Route path="/signup" component={SignUpPage} />
-          <Route path="/login" component={LoginPage} />
-        </Switch>
-      </Router >
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Switch>
+        <Route exact path="/" component={MainContainer} />
+        <Route path="/signup" component={SignUpPage} />
+        <Route path="/login" component={LoginPage} />
+      </Switch>
+    </Router >
 
-    );
-  }
+  );
 }
 
 

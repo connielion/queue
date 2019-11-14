@@ -6,6 +6,8 @@
     width: 100%;
   }
 .navbar {
+    /* position: absolute;
+    top: 0; */
     height: 60px;
     font-size: 12px;
     font-family: 'Raleway', sans-serif;
