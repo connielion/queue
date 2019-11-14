@@ -12,18 +12,20 @@ class App extends Component {
 
   render() {
     return (
+      
       <Router>
         <Navbar bg="light" expand="lg" className="navbar">
           <Navbar.Brand as={Link} to="/">
             <span className="brand">GraphQueue</span>
           </Navbar.Brand>
+          
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
 
               <Nav.Link as={Link} to="/" className="nav-link" >
-                Home
+              
               </Nav.Link>
 
               <Nav.Link as={Link} to="/signup" className="nav-link">
