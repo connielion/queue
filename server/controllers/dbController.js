@@ -103,7 +103,8 @@ dbController.addWaitTime = (req, res, next) => {
             });
         }
         res.locals.results = data;
-        // console.log(res.locals.results);
+        
+        
         return next();
     })
 
@@ -129,7 +130,7 @@ dbController.addWaitTime = (req, res, next) => {
 }
 
 dbController.getWaitTimes = async (req, res, next) => {
-  const { venueId } = req.body;
+  const { venue_id } = req.params;
   try {
       const queryStr = `
       SELECT wait_time, timestamp
@@ -138,9 +139,14 @@ dbController.getWaitTimes = async (req, res, next) => {
       ORDER BY timestamp DESC
       LIMIT 10
       `;
-      const result = await db.query(queryStr);
-      res.locals.results = result.rows;
-      return next();
+  await db.query(queryStr)
+          .then(data => {
+              
+              res.locals.results = data.rows;
+              return next();
+            })
+      
+      
   }
   catch (err) {
       next({
@@ -173,6 +179,19 @@ dbController.addFavorite = async (req, res, next) => {
           return next();
       })
       .catch(err => next(err));
+}
+
+dbController.getFavorites = (req, res) => {
+     const { user } = res.locals;
+     
+     const queryStr = `
+     SELECT venue_id FROM favorites
+     WHERE user_id = $1`
+
+     db.query(queryStr, [user])
+        .then(data => {
+            console.log(data);
+        })
 }
 
 module.exports = dbController;
