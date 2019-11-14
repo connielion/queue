@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import VenueDetails from '../components/VenueDetails.jsx';
 import WaitTimesDisplay from '../components/WaitTimesDisplay.jsx';
+import MessageBoard from '../components/MessageBoard.jsx';
 import '../css/VenuePage.css'
 import VenueMap from '../components/VenueMap.jsx'
 import Button from 'react-bootstrap/Button';
@@ -50,6 +51,12 @@ const VenueContainer = (props) => {
             
 
         </div>
+
+        <br />
+        <MessageBoard venue={props.venueId} />
+
+
+
       </div>
     </div>
   )
