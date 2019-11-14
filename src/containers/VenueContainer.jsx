@@ -2,12 +2,15 @@ import React, { useEffect } from 'react';
 import VenueDetails from '../components/VenueDetails.jsx';
 import WaitTimesDisplay from '../components/WaitTimesDisplay.jsx';
 import '../css/VenuePage.css'
+import VenueMap from '../components/VenueMap.jsx'
+import Button from 'react-bootstrap/Button';
 
 
 const VenueContainer = (props) => {
 
   
   // render map and wait times
+  console.log('props in venucontainer', props.searchResults)
   return (
     <div>
       <section className="search-bar">
@@ -38,12 +41,14 @@ const VenueContainer = (props) => {
         </div>
 
         <div id="map">
-          <iframe
-            width="500"
-            height="400"
-            // #19 before ${props.venueLatitude} in src link specifies zoom (smaller number = less zoom)
-            src={`https://api.maptiler.com/maps/basic/?key=OeKji8TvwQYbzy8G5Pda#19/${props.venueLatitude}/${props.venueLongitude}/`}>
-          </iframe>
+          <VenueMap 
+            StoresInfo = {props.searchResults}
+            latitude={props.latitude} 
+            longitude={props.longitude}
+
+          />
+            
+
         </div>
       </div>
     </div>

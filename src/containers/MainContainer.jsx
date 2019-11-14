@@ -33,6 +33,7 @@ class MainContainer extends Component {
       venueLongitude: '',
       waitTime: 0,
       venueWaitTimeList: [],
+      vanuePriceRange: '',
 
       // components for infinite scrolling functionality
       current: 25,
@@ -99,18 +100,48 @@ class MainContainer extends Component {
       .then(response => response.json())
       .then(data => {
         const parsedData = JSON.parse(data);
-        // console.log('PARSEDDATA: ', parsedData);
+        console.log('PARSEDDATA: ', parsedData);
         // console.log('introspecting the data: ', parsedData.businesses[0])
 
         // Coordinates used for map rendered in Category Container (List Page)
         const firstBusinessLatitude = parsedData.businesses[0].coordinates.latitude;
         const firstBusinessLongitude = parsedData.businesses[0].coordinates.longitude;
 
+
+
+        // some businesses dont have pric range data, so iterate thru the whole thing to add key-value property
+        // for unknow price with "price:?"
+        // instead of cocktail icon, I will implement price range icon as marker!
+        for (let i = 0; i < parsedData.businesses.length ; i++) {
+          if (!parsedData.businesses[i].price) {
+            parsedData.businesses[i].price = '?'
+          }
+        }
+
+
+        // for google map icon
+        for (let i = 0; i < parsedData.businesses.length ; i++) {
+          if (parsedData.businesses[i].price === '?') {
+            parsedData.businesses[i].icon = 'https://media.giphy.com/media/IzpTRrFaYcrSse7NLo/giphy.gif'
+          } else if (parsedData.businesses[i].price === '$') {
+            parsedData.businesses[i].icon = 'https://media.giphy.com/media/UtVcZEfoe26VDo70o9/giphy.gif'
+          } else if (parsedData.businesses[i].price === '$$') {
+            parsedData.businesses[i].icon = 'https://media.giphy.com/media/XaLM8yEodK5gi3Wurh/giphy.gif'
+          } else if (parsedData.businesses[i].price === '$$$') {
+            parsedData.businesses[i].icon = 'https://media.giphy.com/media/cnzaSEhQWl6jbV0XTe/giphy.gif'
+          } else {
+            parsedData.businesses[i].icon = 'https://media.giphy.com/media/mG8SvyUQNcd182U39m/giphy.gif'
+          } 
+        }
+
+        console.log('parseddata after modification', parsedData)
+
+
         const listOfBusinesses = [];
         // console.log(parsedData.businesses.length)
         if (this.state.current <= 50) {
           for (let i = 0; i < this.state.current; i += 1) {
-            // console.log('LIST BUSINESSES -> ', listOfBusinesses)
+            
             listOfBusinesses.push({
               id: parsedData.businesses[i].id,
               name: parsedData.businesses[i].name,
@@ -118,9 +149,13 @@ class MainContainer extends Component {
               location: parsedData.businesses[i].location,
               category: parsedData.businesses[i].categories[0].title,
               latitude: parsedData.businesses[i].coordinates.latitude,
-              longitude: parsedData.businesses[i].coordinates.longitude
-            });
+              longitude: parsedData.businesses[i].coordinates.longitude,
+              phone: parsedData.businesses[i].phone,
+              price: parsedData.businesses[i].price,
+              icon: parsedData.businesses[i].icon
+            })
           }
+          console.log('LIST BUSINESSES -> ', listOfBusinesses)
 
           // console.log('lsitofbusiness is', listOfBusinesses)
 
@@ -315,6 +350,7 @@ class MainContainer extends Component {
           searchInput={this.state.searchInput}
           location={this.state.location}
           searchResults={this.state.searchResults}
+          phone = {this.state.venuePhone}
 
           selectVenue={this.selectVenue}
           waitTimes={this.state.waitTimes}
@@ -342,6 +378,8 @@ class MainContainer extends Component {
           searchInput={this.state.searchInput}
           location={this.state.location}
           searchResults={this.state.searchResults}
+          latitude={this.state.latitude}
+          longitude={this.state.longitude}
 
           // props for venue selection
           venueId={this.state.venueId}
