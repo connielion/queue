@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif:700|Raleway&display=swap');
 :root {
   /* font-size 62.5% makes 1rem = 10px, rem used for dyanmic sizing */
   font-size: 62.5%;
@@ -32,19 +32,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 #logo-pic {
-  height: 15rem;
+  height: 10rem;
   width: auto;
   filter: invert(100%);
 }
 
 #logo p {
-  font-family: 'Merriweather Sans', sans-serif;
-  font-size: 16rem;
+  font-family: 'Noto Serif', serif;
+  font-size: 10rem;
   color: white;
-  text-shadow: -4px 0 black, 0 4px black, 4px 0 black, 0 -4px black;
+  text-shadow: 0 10px black;
   display: inline-block;
   margin-left: -2rem;
 }

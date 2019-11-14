@@ -2,14 +2,14 @@ import React from 'react';
 import VenueDetails from '../components/VenueDetails.jsx';
 import WaitTimesDisplay from '../components/WaitTimesDisplay.jsx';
 import '../css/VenuePage.css'
-import Button from 'react-bootstrap/Button';
+
 
 const VenueContainer = (props) => {
   // render map and wait times
   return (
     <div>
       <section className="search-bar">
-        <Button href="/" className="back-Button">Back</Button>
+
         {/* <img id="logo-pic-venue" src="https://image.flaticon.com/icons/png/512/876/876569.png"/> */}
         <input type="input" id="searchInput" placeholder="Business or Category" onChange={props.setSearchInput} />
         <input type="input" id="location" placeholder="Location" onChange={props.setLocation} />

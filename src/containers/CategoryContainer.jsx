@@ -29,34 +29,50 @@ class CategoryContainer extends Component {
       //console.log('ELEMENT -> ', element);
       return <div id="list" key={i}>
         <button className="list-item" onClick={() => this.props.selectVenue(element.id, element.name, element.url, element.image, element.location, element.phone, element.latitude, element.longitude)}>
-          <img src={`${element.image}`} />
-          {element.name}<br />
-          {element.category}<br />
-          {element.location.address1} {element.location.address2}<br />
-          {element.location.city}, {element.location.state} {element.location.zip_code}
-          {element.phone}<br />
+          <div className="flex fd-col">
+            <div>
+              {element.location.address1} {element.location.address2}<br />
+              <h3>{element.name}</h3>
+              <img src={`${element.image}`} />
+              {element.phone}<br />	              <div className="list-item-details">
+                {/* // need to grab the unique id provided from the yelp api data search results that are saved in state. need to use it to save into our database */}
+                {/* <button onClick={() => this.props.selectVenue(element.id, element.name, element.url, element.image, element.location, element.phone)}>Select</button> */}	            <br />
+                {element.category}
+                <br />
+                {element.location.address1} {element.location.address2}
+                <br />
+                {element.location.city}, {element.location.state} {element.location.zip_code}
+                {element.phone}<br />
+                {/* // need to grab the unique id provided from 
+          the yelp api data search results that are saved in state. 
+          need to use it to save into our database */}
+                {/* <button onClick={() => this.props.selectVenue(element.id, element.name, element.url, 
+            element.image, element.location, element.phone)}>Select</button> */}
+              </div>
+            </div>
+          </div>
           {/* // need to grab the unique id provided from the yelp api data search results that are saved in state. need to use it to save into our database */}
           {/* <button onClick={() => this.props.selectVenue(element.id, element.name, element.url, element.image, element.location, element.phone)}>Select</button> */}
         </button>
       </div>
     })
 
-  if (this.props.categoryPage) {
-    console.log('length of thissss', this.props.categoryPage)
-    // console.log('yoooooooooooooooooo', searchDisplayResults)
-    // console.log("testtttttttttttttttingggg", this.props.searchResults)
-    search =  
-    <div id="category-body">
-      <SearchDisplay
-        searchDisplayResults={searchDisplayResults}
-      />
-      <NewMap
-        StoresInfo = {this.props.searchResults}
-        latitude={this.props.latitude} longitude={this.props.longitude} 
-      />
-      
-    </div>
-  }
+    if (this.props.categoryPage) {
+      console.log('length of thissss', this.props.categoryPage)
+      // console.log('yoooooooooooooooooo', searchDisplayResults)
+      // console.log("testtttttttttttttttingggg", this.props.searchResults)
+      search =
+        <div id="category-body">
+          <SearchDisplay
+            searchDisplayResults={searchDisplayResults}
+          />
+          <NewMap
+            StoresInfo={this.props.searchResults}
+            latitude={this.props.latitude} longitude={this.props.longitude}
+          />
+
+        </div>
+    }
 
     return (
       <div>

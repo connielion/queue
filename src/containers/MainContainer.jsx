@@ -122,7 +122,7 @@ class MainContainer extends Component {
           }
 
           // console.log('lsitofbusiness is', listOfBusinesses)
-  
+
           // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
 
           this.setState(state => {
@@ -225,13 +225,13 @@ class MainContainer extends Component {
               <div id="home-content">
                 {/* // uncomment to work on login and signup functionalities
         <button onClick={this.loginButton}>Login</button> */}
-                {/* <div id="logo">
+                <div id="logo">
                   <img id="logo-pic" src="https://image.flaticon.com/icons/png/512/876/876569.png" />
                   <p>GraphQueue</p>
-                </div> */}
+                </div>
                 <section id="home-page-search-bar">
-                  <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput} />
-                  <input type="input" id="location" placeholder="Location" onChange={this.setLocation} />
+                  <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput} required />
+                  <input type="input" id="location" placeholder="Location" onChange={this.setLocation} required />
                   <input type="button" id="searchButton" onClick={this.search} />
                 </section>
               </div>
@@ -295,6 +295,9 @@ class MainContainer extends Component {
           venueLongitude={this.state.venueLongitude}
           setWaitTime={this.setWaitTime}
           addWaitTime={this.addWaitTime}
+
+          latitude={this.state.latitude}
+          longitude={this.state.longitude}
         />
     }
 
