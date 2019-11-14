@@ -36,17 +36,20 @@ module.exports = {
         if (!req.headers.cookie) return next({error: 'No valid session active'});
         const cookie = req.cookies.ssid;
         const queryStr = `
-        SELECT cookieId FROM sessions
+        SELECT user_id FROM sessions
         WHERE cookieId = ($1)`
-        console.log("Cookie: ", req);
+
         db.query(queryStr, [cookie])
           .then(data => {
-              console.log("Data: ", data.rows);
+            //   console.log("Data: ", data.rows);
               if (data.rows.length === 0) {
                   return res.status(404).json({ invalidSession: 'Invalid session' })
               }
+              res.locals.user = data.rows[0].user_id;
+              console.log("Locals: ", res.locals.user);
               return next();
           })
           .catch(err => next(err));
-    }
+    },
+    
 }
