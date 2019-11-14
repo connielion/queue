@@ -1,30 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios'
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 const SignUpPage = (props) => {
-    const { signupButton } = props;
-    // getValue = function (e) {
-    //     console.log(e.target.value)
-    // // }
-    // postToSignup = function () {
-    //     console.log(`postToSignup() clicked`)
-    //     axios.post(`/dbRouter/signup`)
-    //         .then(res => {
-    //             console.log(`res from POST to /login`, res)
-    //         })
-    // }
 
-    // const getUsername = getValue()
-    // const getPassword = getValue()
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [redirect, setRedirect] = useState(false);
+    
+    function postToSignup() {
+        axios.post(`/dbRouter/signup`, { username, password })
+            .then(res => {
+                console.log(`res from POST to /signup`, res)
+                const username = res.data.username;
+                console.log("Res: ", res.data);
+                props.setUser(username);
+                setRedirect(true);
+            })
+    }
+
+    if (redirect) return <Redirect to='/' />;
     return (
         <div className="container bg1">
             <h1>Sign Up</h1>
             <form action="/dbRouter/signup" method="POST" className="flex f-col">
-                Username: <input type="text" name="username" required /><br />
-                Password: <input type="password" name="password" required autoComplete="true" /><br />
-                <Button id="signup" variant="dark" onClick={(e) => signupButton} >Sign up</Button>
+                username: <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required /><br />
+                password: <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} required /><br />
+                <Button id="signup" variant="dark" onClick={postToSignup}>Sign up</Button>
             </form>
-            <a href="/login" >
+            <a href="/login">
                 <Button variant="link" className="auth-btn">Login here.</Button>
             </a>
         </div>

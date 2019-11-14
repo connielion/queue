@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import MainContainer from './containers/MainContainer.jsx';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import LoginPage from './components/LoginPage.jsx';
@@ -10,6 +10,12 @@ import { Navbar, Nav } from 'react-bootstrap';
 
 
 const App = () => {
+
+  const [user, setUser] = useState(null);
+
+  function updateUser(username) {
+    setUser(username);
+  }
 
   return (
     <Router>
@@ -39,10 +45,9 @@ const App = () => {
         </Navbar.Collapse>
       </Navbar>
       <Switch>
-        <Route exact path="/" component={MainContainer} />
-        <Route path="/signup" component={SignUpPage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/favorites" component={Favorites} />
+        <Route exact path="/" render={ (props) =><MainContainer {...props} user={user} /> } />
+        <Route path="/signup" render={ (props) => <SignUpPage {...props} user={user} setUser={setUser} />} />
+        <Route path="/login" render={ (props) => <LoginPage {...props} user={user} setUser={setUser} /> } />
       </Switch>
     </Router >
 

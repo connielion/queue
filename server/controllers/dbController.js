@@ -15,7 +15,7 @@ dbController.createUser = (req, res, next) => {
     bcrypt.hash(password, saltRounds, function(err, hash) {
         db.query(queryStr, [username, hash])
             .then( data => {
-            res.locals.user = { username };
+            res.locals.username = username;
 
             return next();
             })
