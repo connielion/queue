@@ -43,11 +43,19 @@ app.use((err, req, res, next) => {
 });
 
 
+
 /*** SOCKETS */
 io.on('connection', function(socket) {
+  let roomId;
   console.log('a user connected');
+  socket.on('find room', function(venue) {
+    roomId = venue;
+    socket.join(roomId)
+  })
+  
   socket.on('chat message', function(msg) {
-    io.emit('chat message', msg);
+    console.log("msg: ", msg)
+    io.sockets.in(roomId).emit('chat message', msg);
   })
 })
 

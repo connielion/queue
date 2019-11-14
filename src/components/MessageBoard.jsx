@@ -11,9 +11,10 @@ function MessageBoard(props) {
 
     function submitMessage(e) {
         e.preventDefault();
+        socket.emit('find room', props.venue)
         socket.emit('chat message', currentMessage)
     }
-
+    
     socket.on('chat message', function(msg) {
         const message = (<div key={messageList.length} className='message'>{msg}</div>)
         const updatedMessageList = [...messageList, message]

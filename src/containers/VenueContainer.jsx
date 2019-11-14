@@ -53,7 +53,7 @@ const VenueContainer = (props) => {
         </div>
 
         <br />
-        <MessageBoard />
+        <MessageBoard venue={props.venueId} />
 
 
 
