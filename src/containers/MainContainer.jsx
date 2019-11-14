@@ -45,6 +45,7 @@ class MainContainer extends Component {
       homePage: true,
       categoryPage: false,
       venuePage: false,
+
     }
 
     this.loginButton = this.loginButton.bind(this);
