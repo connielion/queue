@@ -56,6 +56,7 @@ class MainContainer extends Component {
     this.selectVenue = this.selectVenue.bind(this);
     this.setWaitTime = this.setWaitTime.bind(this);
     this.addWaitTime = this.addWaitTime.bind(this);
+    this.updateWaitList = this.updateWaitList.bind(this);
   }
 
   // functions used for login and signup
@@ -176,6 +177,18 @@ class MainContainer extends Component {
   setWaitTime(event) {
     this.setState({ waitTime: event.target.value })
   }
+
+  timeFormatter(data, waitTimes) {
+    for (let i = 0; i <= data.length; i++) {
+      if (data[i]) {
+        let time = data[i]["timestamp"].split(/[- : T .]/);
+        let timestamp = new Date(Date.UTC(time[0], time[1]-1, time[2], time[3], time[4], time[5]))
+        console.log(timestamp);
+        waitTimes.push(<div key={i}>{data[i]["wait_time"]} minutes - last updated {`${timestamp}`}</div>)
+      }
+    }
+  }
+
   addWaitTime() {
     // create body from the things we've saved in state through the setwaittime and selectvenue func
     const body = {
@@ -183,16 +196,63 @@ class MainContainer extends Component {
       venueId: this.state.venueId,
       venueName: this.state.venueName,
     }
+    
     // console.log(body);
     fetch('/dbRouter/addWaitTime', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: { 'Content-Type': 'application/json' }
     })
-      .then(() => console.log('addwaittime fetch request successful'))
+      .then( data => {
+        fetch(`/dbRouter/getWaitTimes/${this.state.venueId}`, {
+          method: 'GET'
+        })
+          .then( res => {
+            console.log("2nd fetch: ", res.clone().json());
+            return res.clone().json()
+            //this.setState({venueWaitTimeList: data});
+          })
+          .then(list => {
+            console.log("List: ", list);
+            const updatedWaitTimes = []
+            this.timeFormatter(list, updatedWaitTimes)
+            console.log("Wait times: ", updatedWaitTimes);
+            this.setState({venueWaitTimeList: updatedWaitTimes})
+          })
+          .catch(err => next(err));
+        //this.setState({venueWaitTimeList: data})
+      })
       .catch((err) => {
         console.log(`${err}: addWaitTime function error when adding wait time`)
       })
+  }
+
+  updateWaitList() {
+    // fetch request to display wait times
+    const venueId = this.state.venueId;
+
+    fetch(`/dbRouter/getWaitTimes/${venueId}`, {
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      const waitTimes = [];
+      this.timeFormatter(data, waitTimes);
+      // for (let i = 0; i <= data.length; i++) {
+      //   if (data[i]) {
+      //     let time = data[i]["timestamp"].split(/[- : T .]/);
+      //     let timestamp = new Date(Date.UTC(time[0], time[1]-1, time[2], time[3], time[4], time[5]))
+      //     console.log(timestamp);
+      //     waitTimes.push(<div key={i}>{data[i]["wait_time"]} minutes - last updated {`${timestamp}`}</div>)
+      //   }
+      this.setState({
+        venueWaitTimeList: waitTimes
+      })
+    })
+    .catch((err) => {
+      console.log(`${err}: getWaitTime func err when getting wait time`)
+    })
   }
 
   render() {
@@ -295,6 +355,7 @@ class MainContainer extends Component {
           venueLongitude={this.state.venueLongitude}
           setWaitTime={this.setWaitTime}
           addWaitTime={this.addWaitTime}
+          updateWaitList={this.updateWaitList}
         />
     }
 
