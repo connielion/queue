@@ -4,6 +4,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 const dbRouter = require('./routes/dbRouter.js');
 const apiRouter = require('./routes/api');
 
@@ -40,7 +43,19 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(PORT, () => {
+/*** SOCKETS */
+io.on('connection', function(socket) {
+  console.log('a user connected');
+  socket.on('chat message', function(msg) {
+    io.emit('chat message', msg);
+  })
+})
+
+io.on('disconnect', function() {
+  console.log('user disconnected');
+});
+
+http.listen(PORT, () => {
   console.log(`Listening on PORT ${PORT}`);
 })
 

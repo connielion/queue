@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import VenueDetails from '../components/VenueDetails.jsx';
 import WaitTimesDisplay from '../components/WaitTimesDisplay.jsx';
+import MessageBoard from '../components/MessageBoard.jsx';
 import '../css/VenuePage.css'
 
 const VenueContainer = (props) => {
@@ -42,6 +43,12 @@ const VenueContainer = (props) => {
             src={`https://api.maptiler.com/maps/basic/?key=OeKji8TvwQYbzy8G5Pda#19/${props.venueLatitude}/${props.venueLongitude}/`}>
           </iframe>
         </div>
+
+        <br />
+        <MessageBoard />
+
+
+
       </div>
     </div>
   )

@@ -23,6 +23,7 @@
     "react-google-maps": "^9.4.5",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
+    "socket.io": "^2.3.0",
     "url-loader": "^2.2.0",
     "yelp-api": "^1.0.3"
   },
