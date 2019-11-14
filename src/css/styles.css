@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap'); */
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif:700|Raleway:400,700&display=swap');
 :root {
     /* font-size 62.5% makes 1rem = 10px, rem used for dyanmic sizing */
     font-size: 62.5%;
@@ -8,6 +9,8 @@
 .navbar {
     height: 60px;
     font-size: 12px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
 }
 
 .align-v {
@@ -16,6 +19,7 @@
 span.brand {
     font-weight: 800;
     font-size: 20px;
+    font-family: 'Noto Serif', serif;
 }
 .auth-buttons {
     display: flex;
@@ -24,11 +28,18 @@ span.brand {
 .navbar-toggler {
     height: 30px;
     width: 30px;
+    display: flex;
+    justify-content: center;
 }
 /* non-desktop only */
 .collapse {
     background-color: #F8F9FA;
 }
+/* flexbox */
+
+.fd-row {
+    flex-direction: row;
+  }
 .flex {
     display: flex;
 }
@@ -44,6 +55,8 @@ span.brand {
     font-weight: 700;
     display: flex;
     justify-content: center;
+    margin-left: 10px;
+    font-family: 'Noto Serif', serif;
 }
 
 .container {
@@ -57,7 +70,7 @@ span.brand {
 }
 
 .bg1 {
-    background-color: rgba(235, 235, 235, 0.728);
+    background-color: rgba(249, 249, 249, 0.728);
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 10px;

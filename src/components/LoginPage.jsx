@@ -1,24 +1,28 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-const LoginPage = ({ signupButton }) => {
+const LoginPage = props => {
+    const { loginButton } = props;
     // add function POST to /dbRouter/login
-    function postToLogin() {
-        console.log(`post() clicked`)
-        axios.post(`/dbRouter/login`)
-            .then(res => {
-                console.log(`res from POST to /login`, res)
-            })
-    }
+    // function postToLogin() {
+    //     console.log(`postToLogin() clicked`)
+    //     axios.post(`/dbRouter/login`)
+    //         .then(res => {
+    //             console.log(`res from POST to /login`, res)
+    //         })
+    // }
+    console.log(`props login`, loginButton)
+    console.log('props: ', props)
     return (
         <div className="container bg1">
+            <h1>Login</h1>
             <form action="/dbRouter/login" method="POST" className="flex f-col">
-                username: <input type="text" name="username" required /><br />
-                password: <input type="password" name="password" required /><br />
-                <Button id="signup" variant="dark" onClick={postToLogin}>Login</Button>
+                Username: <input type="text" name="username" required /><br />
+                Password: <input type="password" name="password" required autoComplete="true" /><br />
+                <Button id="signup" onClick={loginButton}>Login</Button>
                 {/* <input id="signup" type="submit" value="Login" /> */}
             </form>
-            <a href="/signup" onClick={signupButton}>
+            <a href="/signup">
                 <Button variant="link" className="auth-btn">Sign up here.</Button>
             </a>
         </div>

@@ -3,14 +3,16 @@ import VenueDetails from '../components/VenueDetails.jsx';
 import WaitTimesDisplay from '../components/WaitTimesDisplay.jsx';
 import '../css/VenuePage.css'
 import Button from 'react-bootstrap/Button';
+import NewMap from '../components/NewMap.jsx';
 
 const VenueContainer = (props) => {
   // render map and wait times
+  const { latitude, longtitude, searchResults } = props;
+  console.log(`coordinates`, latitude, longtitude)
   return (
     <div>
       <section className="search-bar">
-        <Button href="/" className="back-Button">Back</Button>
-        {/* <img id="logo-pic-venue" src="https://image.flaticon.com/icons/png/512/876/876569.png"/> */}
+        <img id="logo-pic-venue" src="https://image.flaticon.com/icons/png/512/876/876569.png" />
         <input type="input" id="searchInput" placeholder="Business or Category" onChange={props.setSearchInput} />
         <input type="input" id="location" placeholder="Location" onChange={props.setLocation} />
         <input type="button" id="searchButton" onClick={props.search} />
@@ -33,6 +35,7 @@ const VenueContainer = (props) => {
         </div>
 
         <div id="map">
+          {/* <NewMap latitude={Number(latitude)} longtitude={Number(longtitude)} /> */}
           <iframe
             width="500"
             height="400"

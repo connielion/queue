@@ -46,8 +46,8 @@ class MainContainer extends Component {
       venuePage: false,
     }
 
-    this.loginButton = this.loginButton.bind(this);
-    this.signupButton = this.signupButton.bind(this);
+    // this.loginButton = this.loginButton.bind(this);
+    // this.signupButton = this.signupButton.bind(this);
 
     this.setLocation = this.setLocation.bind(this);
     this.setSearchInput = this.setSearchInput.bind(this);
@@ -59,7 +59,8 @@ class MainContainer extends Component {
   }
 
   // functions used for login and signup
-  loginButton() {
+  loginButton = (e) => {
+    console.log(e.target)
     this.setState({
       loginPage: true,
       signupPage: false,
@@ -68,7 +69,8 @@ class MainContainer extends Component {
       venuePage: false,
     })
   }
-  signupButton() {
+  signupButton = (e) => {
+    console.log(`signup`, e.target)
     this.setState({
       loginPage: false,
       signupPage: true,
@@ -122,7 +124,7 @@ class MainContainer extends Component {
           }
 
           // console.log('lsitofbusiness is', listOfBusinesses)
-  
+
           // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
 
           this.setState(state => {
@@ -197,11 +199,17 @@ class MainContainer extends Component {
 
   render() {
     // conditional rendering for the login page
-    // let login = null;
+    // console.log(`state: `, this.signup)
+    const { loginButton, signupButton } = this;
+    // console.log(loginButton)
+    // console.log(signupButton)
+
+    let login = null;
+    // console.log(this.state.loginPage);
     // if (this.state.loginPage) {
     //   login =
     //     <LoginPage
-    //       signupButton={this.signupButton}
+    //       loginButton={loginButton}
     //     />
     // }
 
@@ -210,7 +218,7 @@ class MainContainer extends Component {
     // if (this.state.signupPage) {
     //   signup =
     //     <SignUpPage
-    //       loginButton={this.loginButton}
+    //       signupButton={signupButton}
     //     />
     // }
 
@@ -225,13 +233,13 @@ class MainContainer extends Component {
               <div id="home-content">
                 {/* // uncomment to work on login and signup functionalities
         <button onClick={this.loginButton}>Login</button> */}
-                {/* <div id="logo">
+                <div id="logo">
                   <img id="logo-pic" src="https://image.flaticon.com/icons/png/512/876/876569.png" />
                   <p>GraphQueue</p>
-                </div> */}
+                </div>
                 <section id="home-page-search-bar">
-                  <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput} />
-                  <input type="input" id="location" placeholder="Location" onChange={this.setLocation} />
+                  <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput} required />
+                  <input type="input" id="location" placeholder="Location" onChange={this.setLocation} required />
                   <input type="button" id="searchButton" onClick={this.search} />
                 </section>
               </div>
@@ -244,7 +252,7 @@ class MainContainer extends Component {
     // conditional rendering for the category page
     let category = null;
     if (this.state.categoryPage) {
-      document.body.style.background = "url('')";
+      // document.body.style.background = "url('')";
       category =
         <CategoryContainer
           // props for search bar
@@ -295,6 +303,9 @@ class MainContainer extends Component {
           venueLongitude={this.state.venueLongitude}
           setWaitTime={this.setWaitTime}
           addWaitTime={this.addWaitTime}
+
+          latitude={this.state.latitude}
+          longitude={this.state.longitude}
         />
     }
 
@@ -302,6 +313,31 @@ class MainContainer extends Component {
       <div>
         {/* {login}
         {signup} */}
+        {/* <SignUpPage
+          signupButton={signupButton}
+        />
+        <LoginPage
+          loginButton={loginButton}
+        />
+        <Container className="main-bg">
+          <Row>
+            <Col>
+              <div id="home-content">
+                
+     <button onClick={this.loginButton}>Login</button> 
+                <div id="logo">
+                  <img id="logo-pic" src="https://image.flaticon.com/icons/png/512/876/876569.png" />
+                  <p>GraphQueue</p>
+                </div>
+                <section id="home-page-search-bar">
+                  <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput} required />
+                  <input type="input" id="location" placeholder="Location" onChange={this.setLocation} required />
+                  <input type="button" id="searchButton" onClick={this.search} />
+                </section>
+              </div>
+            </Col>
+          </Row>
+    </Container> */}
         {home}
         {category}
         {venue}
