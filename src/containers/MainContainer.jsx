@@ -158,7 +158,7 @@ class MainContainer extends Component {
           console.log('LIST BUSINESSES -> ', listOfBusinesses)
 
           // console.log('lsitofbusiness is', listOfBusinesses)
-  
+
           // this.setState({ latitude: firstBusinessLatitude.toString(), longitude: firstBusinessLongitude.toString() })
 
           this.setState(state => {
@@ -217,7 +217,7 @@ class MainContainer extends Component {
     for (let i = 0; i <= data.length; i++) {
       if (data[i]) {
         let time = data[i]["timestamp"].split(/[- : T .]/);
-        let timestamp = new Date(Date.UTC(time[0], time[1]-1, time[2], time[3], time[4], time[5]))
+        let timestamp = new Date(Date.UTC(time[0], time[1] - 1, time[2], time[3], time[4], time[5]))
         console.log(timestamp);
         waitTimes.push(<div key={i}>{data[i]["wait_time"]} minutes - last updated {`${timestamp}`}</div>)
       }
@@ -231,18 +231,18 @@ class MainContainer extends Component {
       venueId: this.state.venueId,
       venueName: this.state.venueName,
     }
-    
+
     // console.log(body);
     fetch('/dbRouter/addWaitTime', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: { 'Content-Type': 'application/json' }
     })
-      .then( data => {
+      .then(data => {
         fetch(`/dbRouter/getWaitTimes/${this.state.venueId}`, {
           method: 'GET'
         })
-          .then( res => {
+          .then(res => {
             console.log("2nd fetch: ", res.clone().json());
             return res.clone().json()
             //this.setState({venueWaitTimeList: data});
@@ -252,7 +252,7 @@ class MainContainer extends Component {
             const updatedWaitTimes = []
             this.timeFormatter(list, updatedWaitTimes)
             console.log("Wait times: ", updatedWaitTimes);
-            this.setState({venueWaitTimeList: updatedWaitTimes})
+            this.setState({ venueWaitTimeList: updatedWaitTimes })
           })
           .catch(err => next(err));
         //this.setState({venueWaitTimeList: data})
@@ -269,25 +269,25 @@ class MainContainer extends Component {
     fetch(`/dbRouter/getWaitTimes/${venueId}`, {
       method: 'GET'
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      const waitTimes = [];
-      this.timeFormatter(data, waitTimes);
-      // for (let i = 0; i <= data.length; i++) {
-      //   if (data[i]) {
-      //     let time = data[i]["timestamp"].split(/[- : T .]/);
-      //     let timestamp = new Date(Date.UTC(time[0], time[1]-1, time[2], time[3], time[4], time[5]))
-      //     console.log(timestamp);
-      //     waitTimes.push(<div key={i}>{data[i]["wait_time"]} minutes - last updated {`${timestamp}`}</div>)
-      //   }
-      this.setState({
-        venueWaitTimeList: waitTimes
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        const waitTimes = [];
+        this.timeFormatter(data, waitTimes);
+        // for (let i = 0; i <= data.length; i++) {
+        //   if (data[i]) {
+        //     let time = data[i]["timestamp"].split(/[- : T .]/);
+        //     let timestamp = new Date(Date.UTC(time[0], time[1]-1, time[2], time[3], time[4], time[5]))
+        //     console.log(timestamp);
+        //     waitTimes.push(<div key={i}>{data[i]["wait_time"]} minutes - last updated {`${timestamp}`}</div>)
+        //   }
+        this.setState({
+          venueWaitTimeList: waitTimes
+        })
       })
-    })
-    .catch((err) => {
-      console.log(`${err}: getWaitTime func err when getting wait time`)
-    })
+      .catch((err) => {
+        console.log(`${err}: getWaitTime func err when getting wait time`)
+      })
   }
 
   render() {
@@ -320,13 +320,13 @@ class MainContainer extends Component {
               <div id="home-content">
                 {/* // uncomment to work on login and signup functionalities
         <button onClick={this.loginButton}>Login</button> */}
-                {/* <div id="logo">
+                <div id="logo">
                   <img id="logo-pic" src="https://image.flaticon.com/icons/png/512/876/876569.png" />
                   <p>GraphQueue</p>
-                </div> */}
+                </div>
                 <section id="home-page-search-bar">
-                  <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput} />
-                  <input type="input" id="location" placeholder="Location" onChange={this.setLocation} />
+                  <input type="input" id="searchInput" placeholder="Business or Category" onChange={this.setSearchInput} required />
+                  <input type="input" id="location" placeholder="Location" onChange={this.setLocation} required />
                   <input type="button" id="searchButton" onClick={this.search} />
                 </section>
               </div>
