@@ -8,12 +8,21 @@ module.exports = {
         return next();
     },
 
-    createSession: function(req, res, next) {
-        const queryStr = `
-        INSERT INTO sessions (cookieId)
-        VALUES ($1)`
+    createSession: async function(req, res, next) {
+        const queryStr1 = `
+        SELECT id FROM users 
+        WHERE (username = $1)`
+        const queryStr2 = `
+        INSERT INTO sessions (cookieId, user_id)
+        VALUES ($1, $2)`
 
-        db.query(queryStr, [res.locals.cookie])
+        await db.query(queryStr1, [res.locals.username])
+          .then(data => {
+              res.locals.id = data.rows[0].id;
+          })
+          .catch(err => console.log('Error retrieving user by username'))
+
+        db.query(queryStr2, [res.locals.cookie, res.locals.id])
           .then(data => {
               
               res.locals.session = true;
@@ -27,17 +36,20 @@ module.exports = {
         if (!req.headers.cookie) return next({error: 'No valid session active'});
         const cookie = req.cookies.ssid;
         const queryStr = `
-        SELECT cookieId FROM sessions
+        SELECT user_id FROM sessions
         WHERE cookieId = ($1)`
-        console.log("Cookie: ", req);
+
         db.query(queryStr, [cookie])
           .then(data => {
-              console.log("Data: ", data.rows);
+            //   console.log("Data: ", data.rows);
               if (data.rows.length === 0) {
                   return res.status(404).json({ invalidSession: 'Invalid session' })
               }
+              res.locals.user = data.rows[0].user_id;
+              console.log("Locals: ", res.locals.user);
               return next();
           })
           .catch(err => next(err));
-    }
+    },
+    
 }

@@ -10,7 +10,7 @@ class CategoryContainer extends Component {
 
     if (this.props.categoryPage && this.props.current < 50) {
       window.onscroll = debounce(() => {
-        console.log('scrolling')
+        // console.log('scrolling')
 
         if (this.props.current >= 50) return;
 

@@ -10,8 +10,8 @@ function Map(props) {
     const storesArray = props.StoresInfo
     const [selectedBusiness, setSelectedBusiess] = useState(null)
     console.log('MAP PROPSSS',  props.StoresInfo)
-    // console.log('latttt in Map',  Number(props.latitude))
-    // console.log('longgg n Map',  Number(props.longitude))
+    console.log('latttt in Map',  Number(props.latitude))
+    console.log('longgg n Map',  Number(props.longitude))
     
         return(
             <GoogleMap
