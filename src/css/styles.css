@@ -42,7 +42,10 @@ span.brand {
 .flex {
     display: flex;
 }
-.f-col {
+.j-center {
+    justify-content: center;
+}
+.fd-col {
     flex-direction: column;
 }
 
@@ -78,7 +81,3 @@ span.brand {
 .btn {
     font-size: 20px;
 }
-/* .btn {
-    height: 14px;
-    width: 24px;
-} */
