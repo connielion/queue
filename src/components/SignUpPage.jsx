@@ -22,6 +22,7 @@ const SignUpPage = (props) => {
     if (redirect) return <Redirect to='/' />;
     return (
         <div className="container bg1">
+            <h1>Sign Up</h1>
             <form action="/dbRouter/signup" method="POST" className="flex f-col">
                 username: <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required /><br />
                 password: <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} required /><br />
@@ -32,6 +33,7 @@ const SignUpPage = (props) => {
             </a>
         </div>
     );
+
 }
 
 export default SignUpPage;

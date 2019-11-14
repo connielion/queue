@@ -31,8 +31,9 @@ class WaitTimesDisplay extends Component {
       <div>
         {/* // allows input of only numbers with max length 3; tel stands for telephone number; used for mobile */}
         <div className="waitTime-inputs">
-          <input type="button" onClick={this.props.addWaitTime} value="Add Wait Time"></input>	          <InputGroup className="mb-3">
-
+          {/* <input type="button" onClick={this.props.addWaitTime} value="Add Wait Time"></input>	          
+           */}
+          <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text id="inputGroup-sizing-default">Wait Time(minutes)</InputGroup.Text>
             </InputGroup.Prepend>
@@ -55,7 +56,7 @@ class WaitTimesDisplay extends Component {
           Most Recent Wait Times
               {this.props.venueWaitTimeList}
         </div>
-      </div>
+      </div >
     );
   }
 }
