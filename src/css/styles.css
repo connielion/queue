@@ -5,6 +5,12 @@
     height: 100%;
     width: 100%;
   }
+
+.logo {
+    height: 22px;
+    width: 22px;
+}
+
 .navbar {
     /* position: absolute;
     top: 0; */
@@ -31,6 +37,8 @@ span.brand {
 .navbar-toggler {
     height: 30px;
     width: 30px;
+    display: flex;
+    justify-content: center;
 }
 .fd-row {
     flex-direction: row;
@@ -81,3 +89,11 @@ span.brand {
 .btn {
     font-size: 20px;
 }
+
+/* favorites component */
+
+.favorites-container h2 {
+    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
+}
+
