@@ -17,9 +17,10 @@ const App = () => {
     setUser(username);
   }
 
+
   return (
     <Router>
-      <Navbar bg="light" expand="lg" className="navbar">
+      <Navbar bg="light" expand="lg" fixed="top" className="navbar">
         <Navbar.Brand as={Link} to="/">
           <img className="logo" src="https://image.flaticon.com/icons/png/512/876/876569.png" alt="" />
           <span className="brand">GraphQueue</span>
@@ -45,9 +46,9 @@ const App = () => {
         </Navbar.Collapse>
       </Navbar>
       <Switch>
-        <Route exact path="/" render={ (props) =><MainContainer {...props} user={user} /> } />
-        <Route path="/signup" render={ (props) => <SignUpPage {...props} user={user} setUser={setUser} />} />
-        <Route path="/login" render={ (props) => <LoginPage {...props} user={user} setUser={setUser} /> } />
+        <Route exact path="/" render={(props) => <MainContainer {...props} user={user} />} />
+        <Route path="/signup" render={(props) => <SignUpPage {...props} user={user} setUser={setUser} />} />
+        <Route path="/login" render={(props) => <LoginPage {...props} user={user} setUser={setUser} />} />
       </Switch>
     </Router >
 
