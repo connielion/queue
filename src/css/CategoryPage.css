@@ -43,11 +43,12 @@ body {
 #category-body {
   display: flex;
   justify-content: center;
-  padding-top: 11rem;
+  padding-top: 120px;
 }
 
 #category-body > div {
   margin-right: 20px;
+  
 }
 
 .list-item {
