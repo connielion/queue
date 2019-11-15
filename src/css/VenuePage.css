@@ -38,6 +38,7 @@ body {
 
 #venue-details-column {
   margin-right: 1rem;
+  margin-top: 100px;
 }
 
 h2 {
@@ -52,6 +53,7 @@ h2 {
 
 #map {
   margin-left: 1rem;
+  margin-top: 100px;
 }
 
 #specific-venue-details {

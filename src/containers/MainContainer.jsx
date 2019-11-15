@@ -113,7 +113,7 @@ class MainContainer extends Component {
         // some businesses dont have pric range data, so iterate thru the whole thing to add key-value property
         // for unknow price with "price:?"
         // instead of cocktail icon, I will implement price range icon as marker!
-        for (let i = 0; i < parsedData.businesses.length ; i++) {
+        for (let i = 0; i < parsedData.businesses.length; i++) {
           if (!parsedData.businesses[i].price) {
             parsedData.businesses[i].price = '?'
           }
@@ -121,7 +121,7 @@ class MainContainer extends Component {
 
 
         // for google map icon
-        for (let i = 0; i < parsedData.businesses.length ; i++) {
+        for (let i = 0; i < parsedData.businesses.length; i++) {
           if (parsedData.businesses[i].price === '?') {
             parsedData.businesses[i].icon = 'https://media.giphy.com/media/IzpTRrFaYcrSse7NLo/giphy.gif'
           } else if (parsedData.businesses[i].price === '$') {
@@ -132,7 +132,7 @@ class MainContainer extends Component {
             parsedData.businesses[i].icon = 'https://media.giphy.com/media/cnzaSEhQWl6jbV0XTe/giphy.gif'
           } else {
             parsedData.businesses[i].icon = 'https://media.giphy.com/media/mG8SvyUQNcd182U39m/giphy.gif'
-          } 
+          }
         }
 
         console.log('parseddata after modification', parsedData)
@@ -142,7 +142,7 @@ class MainContainer extends Component {
         // console.log(parsedData.businesses.length)
         if (this.state.current <= 50) {
           for (let i = 0; i < this.state.current; i += 1) {
-            
+
             listOfBusinesses.push({
               id: parsedData.businesses[i].id,
               name: parsedData.businesses[i].name,
@@ -220,7 +220,7 @@ class MainContainer extends Component {
         let time = data[i]["timestamp"].split(/[- : T .]/);
         let timestamp = new Date(Date.UTC(time[0], time[1] - 1, time[2], time[3], time[4], time[5]))
         console.log(timestamp);
-        waitTimes.push(<div key={i}>{data[i]["wait_time"]} minutes - last updated {`${timestamp}`}</div>)
+        waitTimes.push(<div key={i} className="fs-14">{data[i]["wait_time"]} minutes - last updated {`${timestamp}`}</div>)
       }
     }
   }
@@ -351,7 +351,7 @@ class MainContainer extends Component {
           searchInput={this.state.searchInput}
           location={this.state.location}
           searchResults={this.state.searchResults}
-          phone = {this.state.venuePhone}
+          phone={this.state.venuePhone}
 
           selectVenue={this.selectVenue}
           waitTimes={this.state.waitTimes}

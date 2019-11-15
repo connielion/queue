@@ -14,7 +14,6 @@ const VenueContainer = (props) => {
   return (
     <div>
       <section className="search-bar">
-
         {/* <img id="logo-pic-venue" src="https://image.flaticon.com/icons/png/512/876/876569.png"/> */}
         <input type="input" id="searchInput" placeholder="Business or Category" onChange={props.setSearchInput} />
         <input type="input" id="location" placeholder="Location" onChange={props.setLocation} />

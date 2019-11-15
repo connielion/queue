@@ -43,7 +43,7 @@ body {
 #category-body {
   display: flex;
   justify-content: center;
-  padding-top: 120px;
+  padding-top: 160px;
 }
 
 #category-body > div {
@@ -54,7 +54,7 @@ body {
 .list-item {
   height: 350px;
   width: 400px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   border-radius: 20px;
   display: flex;
   flex-direction: row;
