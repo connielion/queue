@@ -9,6 +9,7 @@
 .logo {
     height: 22px;
     width: 22px;
+    margin-bottom: 5px;
 }
 
 .navbar {
@@ -18,7 +19,13 @@
     font-size: 12px;
     font-family: 'Raleway', sans-serif;
     font-weight: 800;
+    
 }
+
+
+
+
+
 
 .align-v {
     vertical-align: middle;
@@ -27,6 +34,7 @@ span.brand {
     font-weight: 800;
     font-size: 20px;
     font-family: 'Noto Serif', serif;
+    margin-left: 10px;
 }
 .auth-buttons {
     display: flex;
