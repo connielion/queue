@@ -8,7 +8,6 @@ export default class Favorites extends Component {
             favs: [
                 { 'name': 'Codesmith', 'address': '1600 Main St., Venice, CA' },
                 { 'name': 'Codesmith2', 'address': '1601 Main St., Venice, CA' }
-
             ]
         }
 
