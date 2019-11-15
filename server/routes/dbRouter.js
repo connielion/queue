@@ -27,12 +27,21 @@ router.post('/addWaitTime', dbController.addVenue, dbController.addWaitTime, (re
     res.sendStatus(200);
 })
 
-router.post('/addFavorite/:venue_id', dbController.addFavorite, (req, res) => {
-    res.status(200).json({ confirmation: 'added favorite'})
+router.post('/addFavorite/:venue_id', dbController.addVenue, dbController.addFavorite, (req, res) => {
+    res.status(200).json({ confirmation: 'added favorite', isFavorite: true})
 })
 
 router.get('/favorites/', authController.isLoggedIn, dbController.getFavorites, (req, res) => {
-    res.status(201).json({ confirmation: 'here are your results'});
+    res.status(200).json({ confirmation: 'here are your results'});
 })
+
+router.get('/favorites/:venue_id', authController.isLoggedIn, dbController.getFavorite, (req, res) => {
+    res.status(200).json({ confirmation: 'success', isFavorite: res.locals.isFavorite })
+})
+
+router.post('/deleteFavorite/:venue_id', dbController.removeFavorite, (req, res) => {
+    res.status(200).json({ confirmation: 'added favorite', isFavorite: res.locals.isFavorite})
+})
+
 
 module.exports = router;

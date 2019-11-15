@@ -8,9 +8,8 @@ import VenueMap from '../components/VenueMap.jsx'
 
 const VenueContainer = (props) => {
 
-
   // render map and wait times
-  console.log('props in venucontainer', props.searchResults)
+  
   return (
     <div>
       <section className="search-bar">
@@ -28,6 +27,7 @@ const VenueContainer = (props) => {
             venueImage={props.venueImage}
             venueLocation={props.venueLocation}
             venuePhone={props.venuePhone}
+            venue_id={props.venueId}
           />
 
           <WaitTimesDisplay

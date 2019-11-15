@@ -8,6 +8,7 @@ class CategoryContainer extends Component {
   constructor(props) {
     super(props);
 
+    /*
     if (this.props.categoryPage && this.props.current < 50) {
       window.onscroll = debounce(() => {
         // console.log('scrolling')
@@ -19,6 +20,8 @@ class CategoryContainer extends Component {
         }
       });
     }
+    */
+
   }
 
   render() {
@@ -58,9 +61,7 @@ class CategoryContainer extends Component {
     })
 
     if (this.props.categoryPage) {
-      console.log('length of thissss', this.props.categoryPage)
-      // console.log('yoooooooooooooooooo', searchDisplayResults)
-      // console.log("testtttttttttttttttingggg", this.props.searchResults)
+
       search =
         <div id="category-body">
           <SearchDisplay

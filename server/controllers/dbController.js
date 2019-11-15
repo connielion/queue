@@ -181,7 +181,7 @@ dbController.addFavorite = async (req, res, next) => {
       .catch(err => next(err));
 }
 
-dbController.getFavorites = (req, res) => {
+dbController.getFavorites = (req, res, next) => {
      const { user } = res.locals;
      
      const queryStr = `
@@ -191,7 +191,57 @@ dbController.getFavorites = (req, res) => {
      db.query(queryStr, [user])
         .then(data => {
             console.log(data);
+            res.locals.favorites = data.rows;
+            return next();
         })
+        .catch(err => next(err));
+}
+
+dbController.getFavorite = (req, res, next) => {
+    const { venue_id } = req.params;
+
+    const queryStr = `
+    SELECT venue_id FROM favorites 
+    WHERE (venue_id = $1 AND user_id = $2)`
+
+    db.query(queryStr, [venue_id, res.locals.user])
+      .then(data => {
+          console.log(data);
+          if (data.rows.length > 0) {
+            res.locals.isFavorite = true;
+            return next();
+          } else {
+              return res.status(200).json({ confirmation: 'not found', isFavorite: false });
+          }
+      })
+      .catch(err => next(err));
+}
+
+dbController.removeFavorite = async (req, res, next) => {
+    const { venue_id } = req.params;
+    let user;
+    const cookie = req.cookies.ssid;
+    const queryStr = `
+    SELECT user_id FROM sessions 
+    WHERE cookieid = $1`
+
+    await db.query(queryStr, [cookie])
+      .then(data => {
+          user = data.rows[0].user_id;
+      })
+    .catch(err => next(err));
+    
+    const deleteStr = `
+    DELETE FROM favorites 
+    WHERE (user_id = $1, venue_id = $2)`
+
+    db.query(deleteStr, [user, venue_id.toString()])
+      .then(data => {
+          res.locals.isFavorite = false;
+          console.log("Dataj: ", data);
+          return next();
+      })
+      .catch(err => next(err));
 }
 
 module.exports = dbController;

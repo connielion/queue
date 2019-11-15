@@ -100,3 +100,9 @@ h2 {
   bottom: 0;
   width: 498px;
 }
+
+.favorite:hover {
+  color: gold;
+  text-shadow: 1px 1px #ff0000;
+  cursor: pointer;
+}
