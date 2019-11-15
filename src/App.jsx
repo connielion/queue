@@ -12,24 +12,15 @@ import { Navbar, Nav } from 'react-bootstrap';
 const App = () => {
 
   const [user, setUser] = useState(null);
-  let isLoggedIn = false;
+
   function updateUser(username) {
     setUser(username);
 
   }
   //console.log(user)
-  //console.log(document.querySelector('.signup'))
-  // if (user !== null) {
-  //   let signupLink = document.getElementById('signupLink');
-  //   console.log(signupLink)
-  //   //signupLink.style.display = 'none';
-  // }
 
   function hideRoute() {
-    // if (user === null) {
-    //   let favlink = document.querySelector('.favorites')
-    //   favlink.style.display = 'none'
-    // }
+
     if (user !== null) { // if logged in
       let signupLink = document.querySelector('.signup'),
         loginLink = document.querySelector('.login');
@@ -43,13 +34,7 @@ const App = () => {
 
       let signoutLink = document.querySelector('.signout');
       signoutLink.innerHTML = 'Signout';
-    } // not logged in 
-
-
-
-    // let favLink = document.querySelector('.favorites');
-    // favLink.style.display = 'none'
-
+    }
   }
   return (
     <Router>
