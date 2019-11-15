@@ -27,7 +27,7 @@ class CategoryContainer extends Component {
     let searchDisplayResults = this.props.searchResults.map((element, i) => {
       // console.log('search results', props.searchResults);
       //console.log('ELEMENT -> ', element);
-      return <div id="list" key={i}>
+      return <div id="list" key={i} className="fs-14">
         <button className="list-item" onClick={() => this.props.selectVenue(element.id, element.name, element.url, element.image, element.location, element.phone, element.latitude, element.longitude)}>
           <div className="flex fd-col">
             <div>

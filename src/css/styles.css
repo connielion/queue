@@ -118,6 +118,8 @@ span.brand {
 }
 
 .search-bar {
+    position: fixed;
+    margin-top: 60px;
     z-index: 2;
 }
 
@@ -128,3 +130,4 @@ span.brand {
 .fs-18 {
     font-size: 18px;
 }
+
