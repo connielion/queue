@@ -111,3 +111,10 @@ h2 {
 .wait-time-input-group {
   font-size: 14px;
 }
+.favorite:hover {
+  color: gold;
+  text-shadow: 1px 1px #ff0000;
+  cursor: pointer;
+}
+
+
