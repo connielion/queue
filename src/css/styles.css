@@ -138,3 +138,6 @@ span.brand {
     font-size: 18px;
 }
 
+.search-placeholders::placeholder {
+    font-size: 16px;
+}
