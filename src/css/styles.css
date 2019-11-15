@@ -6,9 +6,17 @@
     width: 100%;
   }
 
+.mb-20 {
+    margin-bottom: 20px;
+}
+.mt-20 {
+    margin-top: 20px;
+}
+
 .logo {
     height: 22px;
     width: 22px;
+    margin-bottom: 5px;
 }
 
 .navbar {
@@ -18,7 +26,14 @@
     font-size: 12px;
     font-family: 'Raleway', sans-serif;
     font-weight: 800;
+    position: fixed;
+    overflow: hidden;
 }
+
+
+
+
+
 
 .align-v {
     vertical-align: middle;
@@ -27,6 +42,7 @@ span.brand {
     font-weight: 800;
     font-size: 20px;
     font-family: 'Noto Serif', serif;
+    margin-left: 10px;
 }
 .auth-buttons {
     display: flex;
@@ -95,5 +111,30 @@ span.brand {
 .favorites-container h2 {
     font-weight: 600;
     font-family: 'Raleway', sans-serif;
+}
+
+.fixed {
+    margin-top:60px;
+    position: fixed;
+    z-index: 2px;
+}
+
+.new-map {
+    position: absolute;
+    top: 200px;
+}
+
+.search-bar {
+    position: fixed;
+    margin-top: 60px;
+    z-index: 2;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.fs-18 {
+    font-size: 18px;
 }
 

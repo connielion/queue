@@ -38,6 +38,7 @@ body {
 
 #venue-details-column {
   margin-right: 1rem;
+  margin-top: 100px;
 }
 
 h2 {
@@ -52,6 +53,7 @@ h2 {
 
 #map {
   margin-left: 1rem;
+  margin-top: 100px;
 }
 
 #specific-venue-details {
@@ -93,6 +95,7 @@ h2 {
 .message {
   border-bottom: 1px solid #ddd;
   padding: 10px;
+  font-size: 14px;
 }
 
 .chat-form {
@@ -101,8 +104,17 @@ h2 {
   width: 498px;
 }
 
+.chat-input {
+  font-size: 14px;
+}
+
+.wait-time-input-group {
+  font-size: 14px;
+}
 .favorite:hover {
   color: gold;
   text-shadow: 1px 1px #ff0000;
   cursor: pointer;
 }
+
+

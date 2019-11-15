@@ -26,15 +26,15 @@ function MessageBoard(props) {
 
     return (
         <div className='message-board flex j-center fd-col'>
-            <ul id="messages">
+            <ul id="messages" className="fs-14">
                 {messageList}
             </ul>
 
             {/* <form action="">
                 <input id="message-input" onChange={updateMessage} value={currentMessage} /><button onClick={submitMessage}>Send</button>
             </form> */}
-            <Form className="chat-form flex fd-row">
-                <Form.Control id="message-input" onChange={updateMessage} value={currentMessage} />
+            <Form className="chat-form flex fd-row fs-14">
+                <Form.Control id="message-input" onChange={updateMessage} value={currentMessage} className="chat-input" />
                 <Button variant="primary" type="submit" onClick={submitMessage}>
                     Send
                 </Button>
